@@ -8,8 +8,16 @@ import json
 def index():
     return render_template("index.html")
 
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    pass
+
+@app.route('/logout', methods=['POST', 'GET'])
+def logout():
+    pass
 
 @app.route('/location', methods=['POST', 'GET'])
 def location():
-    x = request.form['lat']
-    return jsonify(x)
+    lat, lon = request.form['lat'], request.form['lon']
+    rs = weather_from_cords(lat,lon)
+    return jsonify(rs)
