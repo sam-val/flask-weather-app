@@ -25,6 +25,8 @@ def weather_from_ip(ip):
             # print(data_from_ip, file=sys.stderr) 
             lat, lon = data_from_ip['latitude'], data_from_ip['longitude']
             return weather_from_cords(lat,lon)
+        else: 
+            print(r.status_code, file=sys.studerr)
     return None
 
 def get_my_own_ip():

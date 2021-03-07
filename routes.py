@@ -19,6 +19,7 @@ def login():
 def logout():
     pass
 
+# AJAX
 @app.route('/location', methods=['POST', 'GET'])
 def location():
     lat, lon = request.form['lat'], request.form['lon']

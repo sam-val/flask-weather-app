@@ -1,6 +1,3 @@
-
-
-
 const search_field = document.querySelector('#search-box');
 const suggest_field = document.querySelector('#suggest-box');
 
@@ -34,6 +31,7 @@ function suggest_city() {
 
 function set_search_text() {
     search_field.value = this.value;
+
 }
 
 function geoFindMe() {
@@ -51,7 +49,9 @@ function geoFindMe() {
         lat: latitude,
         lon: longitude
       }).done(function(response){
+
           alert(JSON.stringify(response))
+          update_map(response['coord']['lon'], response['coord']['lat']);
       })
     }
   
@@ -67,5 +67,7 @@ function geoFindMe() {
     }
   
   }
+
+
   
   document.querySelector('#find-me').addEventListener('click', geoFindMe);
