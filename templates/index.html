@@ -16,7 +16,19 @@
     </script>
     <script defer src="{{ url_for('static', filename='scripts/script.js') }}"></script>
     <link rel="stylesheet" href=" {{ url_for('static', filename='css/styles.css') }}">
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYgqO5Oif6GBe1Ys5jjWpjDzQnqnlhGjc&callback=initMap&libraries=&v=weekly"></script>
+    <script>
+        let map;
 
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+        }
+
+
+    </script>
 </head>
 
 <body>
@@ -28,6 +40,22 @@
         <p id = "status"></p>
         <a id = "map-link" target="_blank"></a>
 
+    {% if ip %}
+    <div>
+        <span>Your IP: </span>
+        <h3>{{ ip }}</h3>
+    </div>
+    {% endif %}
+
+    {% if weather %}
+    <div>
+        <p>{{ weather }}</p>
+    </div>
+    <div class="google-map">
     
+    </div>
+    {% endif %}
+
+    <div id="map"></div>
 </body>
 </html>
