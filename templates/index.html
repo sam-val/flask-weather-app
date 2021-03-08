@@ -22,11 +22,12 @@
 </head>
 
 <body>
+    <input type="hidden" id="city_id" value="">
     <div class="grid">
-        <input id="search-box" type="text" value="search-box">
-        <input id="suggest-box" type="text" value="suggest box">
+        <input id="search-box" type="text" value="" placeholder="Type Your City">
+        <input id="suggest-box" type="text" value="" readonly>
     </div>
-        <button id="find-me">shot my loca</button><br/>
+        <button id="get-weather">Get Weather!</button><br/>
         <p id = "status"></p>
         <a id = "map-link" target="_blank"></a>
 
@@ -37,14 +38,25 @@
     </div>
     {% endif %}
 
+    <div id="weather-field">
     {% if weather %}
-    <div>
-        <p>{{ weather }}</p>
+        <div>
+        <img id="wicon" src="http://openweathermap.org/img/wn/{{ weather.weather[0].icon }}@2x.png" alt="weather icon">
+        <span id="wname">{{ weather.name}}, {{ weather.sys.country }}</span><br>
+        <span id="wmain">{{ weather.weather[0].main }}</span><br>
+        <span id="wtemp">{{ weather.main.temp - 273.15 }}°С </span><br>
+        <span id="wwind-speed">Wind speed: {{ weather.wind.speed }}</span><br>
+        <span id="whumid">Humid: {{ weather.main.humidity }}</span>
+        </div>
+
+        {{ weather }}
+
+    {% endif %}
     </div>
+
     <div class="google-map">
     
     </div>
-    {% endif %}
 
     <div id="map" class="map"></div>
 </body>

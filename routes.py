@@ -1,6 +1,6 @@
 from weather import app
 from flask import render_template, url_for, redirect, jsonify, request
-from weather.utils import weather_from_cords, weather_from_ip, get_my_own_ip
+from weather.utils import weather_from_cords, weather_from_ip, get_my_own_ip, weather_from_city
 import json
 
 @app.route('/', methods=['POST', 'GET'])
@@ -24,4 +24,12 @@ def logout():
 def location():
     lat, lon = request.form['lat'], request.form['lon']
     rs = weather_from_cords(lat,lon)
+    return jsonify(rs)
+
+
+@app.route('/weatherbycity', methods=['POST', 'GET'])
+def weather_by_city():
+    # lat, lon = request.form['lat'], request.form['lon']
+    id = request.form['id']
+    rs = weather_from_city(id)
     return jsonify(rs)

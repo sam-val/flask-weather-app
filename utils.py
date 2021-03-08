@@ -29,5 +29,12 @@ def weather_from_ip(ip):
             print(r.status_code, file=sys.studerr)
     return None
 
+def weather_from_city(city_id):
+    rs = get(f"https://api.openweathermap.org/data/2.5/weather?id={city_id}&appid={API_KEY_OPEN_WEATHER}", timeout=TIMEOUT)
+    if rs is not None:
+        if rs.status_code == 200:
+            return rs.json()
+    return None
+
 def get_my_own_ip():
     return get('https://api.ipify.org').text

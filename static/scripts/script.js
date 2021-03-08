@@ -3,29 +3,28 @@ const suggest_field = document.querySelector('#suggest-box');
 
 search_field.addEventListener('input', suggest_city);
 suggest_field.addEventListener('click', set_search_text);
+const hidden_field = document.querySelector('#city_id');
+const weather_field = document.querySelector('#weather-field');
+
 function suggest_city() {
     let text = this.value.toLowerCase().trim();
-    let options = [];
-    for(let item of cities) {
-          let city = item['name'].trim().toLowerCase();
-          if (city === text) {
-              suggest_field.value = city + "," + item['country'];
-              return;
+    for(let i=0; i < cities.length; i++ ) {
+          let item = cities[i]
+          let city = item['name'].trim();
+        
+          if (city.toLowerCase() === text && city.length <= text.length ) {
+                  suggest_field.value = city + ", " + item['country'];
+                  hidden_field.value =  item['id'];
+                  return;
+          }else if (city.toLowerCase().startsWith(text)) {
+                  suggest_field.value = city + ", " + item['country'];
+                  hidden_field.value =  item['id'];
+                  return;
+          }else if (city.toLowerCase().includes(text) ) {
+                  suggest_field.value = city + ", " + item['country'];
+                  hidden_field.value =  item['id'];
+                  return;
           }
-          else if (city.startsWith(text) || city.includes(text)) {
-              options.push([city, item['country']])
-          }
-
-    }
-    if (options.length > 1) {
-      let min_length_item = options[0];
-      for (let i=0; i< options.length; i++) {
-          if (options[i][0].length < min_length_item[0].length) {
-              min_length_item = options[i];
-          }
-      }
-      suggest_field.value = min_length_item[0] + "," + min_length_item[1];
-      return;
     }
 }
 
@@ -34,40 +33,22 @@ function set_search_text() {
 
 }
 
-function geoFindMe() {
-    const status = document.querySelector('#status');
-    const mapLink = document.querySelector('#map-link');
-  
-    mapLink.href = '';
-    mapLink.textContent = '';
-  
-    function success(position) {
-      const latitude  = position.coords.latitude;
-      const longitude = position.coords.longitude;
+function get_weather() {
+    var id = hidden_field.value;
+    console.log("id is " ,id);
+  $.post('/weatherbycity', {
 
-      $.post('/location', {
-        lat: latitude,
-        lon: longitude
-      }).done(function(response){
+      id: id
 
-          alert(JSON.stringify(response))
-          update_map(response['coord']['lon'], response['coord']['lat']);
-      })
-    }
-  
-    function error() {
-      status.textContent = 'Unable to retrieve your location';
-    }
-  
-    if(!navigator.geolocation) {
-      status.textContent = 'Geolocation is not supported by your browser';
-    } else {
-      status.textContent = 'Locating…';
-      navigator.geolocation.getCurrentPosition(success, error);
-    }
-  
-  }
+  }).done(function(response){
+            // alert(JSON.stringify(response))
+            weather_field.innerHTML = JSON.stringify(response);
+            update_map(response['coord']['lon'], response['coord']['lat']);
+          })
+
+}
+
 
 
   
-  document.querySelector('#find-me').addEventListener('click', geoFindMe);
+  document.querySelector('#get-weather').addEventListener('click', get_weather);
