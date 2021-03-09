@@ -75,6 +75,6 @@
     color: rgba(9, 223, 9, 0.788);
 }
 
-/* #wmain, #whumid, #wwind-speed, #wtemp {
-    grid-column: 2;
-} */
+#wmain, #whumid, #wwind-speed, #wtemp {
+    font-size: 18px;
+}
