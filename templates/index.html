@@ -23,6 +23,12 @@
 
 <body>
     <input type="hidden" id="city_id" value="">
+    {% if ip %}
+    <div>
+        <span>Your IP: </span>
+        <h3>{{ ip }}</h3>
+    </div>
+    {% endif %}
     <div class="grid">
         <input id="search-box" type="text" value="" placeholder="Type Your City">
         <input id="suggest-box" type="text" value="" readonly>
@@ -31,33 +37,35 @@
         <p id = "status"></p>
         <a id = "map-link" target="_blank"></a>
 
-    {% if ip %}
-    <div>
-        <span>Your IP: </span>
-        <h3>{{ ip }}</h3>
+    <div class="info-box">
+       <div class="weather-container">
+            <div class="weather-info">
+                <div class="wlocation">
+                    <div style="height: 20px;">
+                        <span id="wplace">{{ weather.name}}, {{ weather.sys.country }}</span>
+                        <img id="wflag" src="http://openweathermap.org/images/flags/{{ weather.sys.country.lower() }}.png" alt="weather icon">
+                    </div>
+
+                    <div id="time">{{  time }}</div>
+
+                </div>
+                <div>
+                    <img id="wicon" src="http://openweathermap.org/img/wn/{{ weather.weather[0].icon }}@4x.png" alt="weather icon">
+                </div>
+
+                <div id="wtemp">{{ weather.main.temp - 273.15 }}°С </div>
+                <div id="wmain">{{ weather.weather[0].main }}</div>  
+                <div id="wwind-speed">Wind-Speed: {{ weather.wind.speed }}</div>
+                <div id="whumid">Humidity: {{ weather.main.humidity }}</div>
+
+            </div>
+       </div> 
+
+        <div id="map" class="map"></div>
+
     </div>
-    {% endif %}
 
-    <div id="weather-field">
-    {% if weather %}
-        <div>
-        <img id="wicon" src="http://openweathermap.org/img/wn/{{ weather.weather[0].icon }}@2x.png" alt="weather icon">
-        <span id="wname">{{ weather.name}}, {{ weather.sys.country }}</span><br>
-        <span id="wmain">{{ weather.weather[0].main }}</span><br>
-        <span id="wtemp">{{ weather.main.temp - 273.15 }}°С </span><br>
-        <span id="wwind-speed">Wind speed: {{ weather.wind.speed }}</span><br>
-        <span id="whumid">Humid: {{ weather.main.humidity }}</span>
-        </div>
-
-        {{ weather }}
-
-    {% endif %}
     </div>
 
-    <div class="google-map">
-    
-    </div>
-
-    <div id="map" class="map"></div>
 </body>
 </html>

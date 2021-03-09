@@ -26,7 +26,7 @@ def weather_from_ip(ip):
             lat, lon = data_from_ip['latitude'], data_from_ip['longitude']
             return weather_from_cords(lat,lon)
         else: 
-            print(r.status_code, file=sys.studerr)
+            print(r.status_code, file=sys.stderr)
     return None
 
 def weather_from_city(city_id):
