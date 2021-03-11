@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Flask Weather App</title>
     <link rel="stylesheet" href=" {{ url_for('static', filename='css/styles.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -52,8 +52,8 @@
                 <div>
                     <img id="wicon" src="http://openweathermap.org/img/wn/{{ weather.weather[0].icon }}@4x.png" alt="weather icon">
                 </div>
-
-                <div id="wtemp">{{ weather.main.temp - 273.15 }}°С </div>
+                {% set temp = weather.main.temp - 273.15 %}
+                <div id="wtemp">{{ '%.1f' % temp }}°С </div>
                 <div id="wmain">{{ weather.weather[0].main }}</div>  
                 <div id="wwind-speed">Wind-Speed: {{ weather.wind.speed }}</div>
                 <div id="whumid">Humidity: {{ weather.main.humidity }}</div>

@@ -1,4 +1,4 @@
-const MAP_ZOOM = 8;
+const MAP_ZOOM = 9;
 
 var map;
 document.addEventListener('DOMContentLoaded', function() {

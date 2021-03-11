@@ -61,23 +61,25 @@ function get_weather() {
       id: id
 
   }).done(function(response){
-            // alert(JSON.stringify(response))
-            // weather_field.innerHTML = JSON.stringify(response);
-            weather_flag.src = `http://openweathermap.org/images/flags/${response['sys']['country'].toLowerCase()}.png`
-            weather_wind_speed.innerHTML = `Wind speed: ${response['wind']['speed']}` 
-            weather_humidity.innerHTML = `Humidity: ${response['main']['humidity']}`
-            weather_temp.innerHTML = `${ (response['main']['temp'] - 273.15).toFixed(1) }°С `
-            weather_main.innerHTML = response['weather'][0]['main']
-            weather_icon.src = `http://openweathermap.org/img/wn/${response['weather'][0]['icon']}@4x.png`
-            weather_place.innerHTML =  `${response['name']}, ${response['sys']['country']}`
-            // weather_time.innerHTML = `${time.getFullYear()}-${time.getMonth()}-${time.getDate()} ${time.getHours().toString().padStart(2,'0')}:${time.getMinutes().toString().padStart(2,'0')}`
-            weather_time.innerHTML = response['time_string'];
-            update_map(response['coord']['lon'], response['coord']['lat']);
-          })
+        update_weather(response);
+  })
+            
 
 }
 
+function update_weather(response) {
+    weather_flag.src = `http://openweathermap.org/images/flags/${response['sys']['country'].toLowerCase()}.png`
+    weather_wind_speed.innerHTML = `Wind speed: ${response['wind']['speed']}` 
+    weather_humidity.innerHTML = `Humidity: ${response['main']['humidity']}`
+    weather_temp.innerHTML = `${ (response['main']['temp'] - 273.15).toFixed(1) }°С `
+    weather_main.innerHTML = response['weather'][0]['main']
+    weather_icon.src = `http://openweathermap.org/img/wn/${response['weather'][0]['icon']}@4x.png`
+    weather_place.innerHTML =  `${response['name']}, ${response['sys']['country']}`
+    // weather_time.innerHTML = `${time.getFullYear()}-${time.getMonth()}-${time.getDate()} ${time.getHours().toString().padStart(2,'0')}:${time.getMinutes().toString().padStart(2,'0')}`
+    weather_time.innerHTML = response['time_string'];
+    update_map(response['coord']['lon'], response['coord']['lat']);
 
+}
 
   
   document.querySelector('#get-weather').addEventListener('click', get_weather);
