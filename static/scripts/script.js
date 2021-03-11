@@ -13,6 +13,9 @@ const weather_wind_speed = document.querySelector('#wwind-speed');
 const weather_humidity = document.querySelector('#whumid');
 const weather_temp = document.querySelector('#wtemp');
 const weather_time = document.querySelector('#time');
+const get_weather_button = document.querySelector('#btn-get-weather');
+
+get_weather_button.addEventListener('click', get_weather);
 
 function suggest_city() {
     let text = this.value.toLowerCase().trim();
@@ -82,4 +85,3 @@ function update_weather(response) {
 }
 
   
-  document.querySelector('#get-weather').addEventListener('click', get_weather);
